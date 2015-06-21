@@ -1,0 +1,97 @@
+<h1>Distributed Cloud Computing Platform</h1>
+
+<h3>Start a project</h3>
+
+<form id="p_form" action="" method="post">
+	<!--<div class="form-group">
+		<label for="p_name">Task name</label>
+		<input type="text" class="form-control" id="p_name" name="p_name" placeholder="A task name">
+	</div>-->
+	<div class="form-group">
+		<label for="p_tool">Tool</label>
+		<select id="p_tool" name="p_tool" class="form-control">
+		  <option value="">Choose...</option>
+		  <option value="video">Video Converter</option>
+		</select>
+	</div>
+	<div id="b_video" class="hide">
+	  <div class="form-group">
+		<label for="p_url">Associated Rancher Instance</label>
+		<input type="text" disabled="disabled" value="{{{rancher_api_video}}}" class="form-control">
+		<p class="help-block">FYI</p>
+	  </div>
+	  <div class="form-group">
+		<label for="p_url">Video URL</label>
+		<input type="text" id="p_url" name="p_url" class="form-control" placeholder="http://download.blender.org/durian/trailer/sintel_trailer-1080p.mp4">
+		<p class="help-block">The video to convert (no HTTPS support for now)</p>
+	  </div>
+	  <div class="form-group">
+		<label for="p_workers">Minimal workers required</label>
+		<select id="p_workers" name="p_workers" class="form-control">
+		  <option value="2">2</option>
+		  <option value="5">5</option>
+		  <option value="10">10</option>
+		  <option value="10">...</option>
+		</select>
+		<p class="help-block">How many workers you want to be used for your task (minimal number)</p>
+	  </div>
+	  <div class="form-group">
+		<label for="p_public">"Public" workers</label>
+		<select id="p_public" name="p_public" class="form-control">
+		  <option value="0">0</option>
+		  <option value="2">2 Amazon EC2 Large</option>
+		  <option value="3">3 Amazon EC2 Large</option>
+		  <option value="5">5 Amazon EC2 Large</option>
+		  <option value="5">10 Amazon EC2 Large</option>
+		  <option value="5">...</option>
+		</select>
+		<p class="help-block">In case you want to add additional/dedicated workers running on public cloud-based instances</p>
+		<p class="help-block">Instances will be started by Rancher on Amazon EC2</p>
+		<p class="help-block">Demo limit: number will be capped to the current number of running EC2 instances already started using Rancher instance GUI</p>
+	  </div>
+	  <div class="form-group">
+		<label for="p_codec">Video output setting</label>
+		<select id="p_codec" name="p_codec" class="form-control">
+		  <option value="1">MP4 format, x264 1000kb/s, 1 pass, preset "slow"</option>
+		  <option value="1" disabled="disabled">More options to come...</option>
+		</select>
+		<p class="help-block">Full ffmpeg options... soon.</p>
+	  </div>
+	</div>
+	<input type="hidden" name="action" value="task">
+	<button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+<script>
+$(document).ready(function()
+{
+	$('#p_tool').on('click', function()
+	{
+		if($(this).val() === 'video')
+			$('#b_video').removeClass('hide');
+		else
+			$('#b_video').addClass('hide');
+	});
+
+	$('#p_form').submit(function(evt)
+	{
+		try
+		{
+			//if( ! $('#p_name').val().length)
+			//	throw {msg: 'Task name missing', elt: '#p_name'}
+
+			if( ! $('#p_url').val().length)
+				throw {msg: 'Video URL missing', elt: '#p_url'}
+		}
+		catch(e)
+		{
+			$('.error').text(e.msg).removeClass('hide');
+			$(e.elt).parent().addClass('has-error');
+			$(e.elt).focus();
+
+			evt.preventDefault();
+			return false;
+		}
+	});
+});
+</script>

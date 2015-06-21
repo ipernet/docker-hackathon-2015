@@ -1,0 +1,15 @@
+{
+	"name": "pffmpeg-worker",
+	"version": "0.0.1",
+	"description": "",
+	"dependencies": {
+		"socket.io": "1.3.x",
+		"fluent-ffmpeg": "2.0.x",
+		"express": "4.12.x",
+		"restler":	"3.1.x",
+		"node-uuid": "1.4.x"
+	},
+	"engines": {
+		"node": ">=0.10"
+	}
+}

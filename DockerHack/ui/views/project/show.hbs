@@ -1,0 +1,40 @@
+<h1>Distributed Cloud Computing Platform</h1>
+
+<h3>Task status (owner) - Video</h3>
+
+<form id="p_form" action="" method="post">
+	<div class="form-group">
+		<label for="p_name">Status</label>
+		<input type="text" disabled="disabled" value="{{{task.status}}}" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="p_name">Download link</label>
+		<a href="/videos/{{{task.tId}}}.mp4" class="form-control" target="blank">/videos/{{{task.tId}}}.mp4</a>
+	</div>
+	<div class="form-group">
+		<label for="p_logs">Live logs</label>
+		<textarea id="p_logs" class="form-control" style="height: 300px"></textarea>
+	</div>
+	<div class="form-group">
+		<label for="p_tool">Usage stats</label>
+		<p>CPU Usage (all workers): {{{task.usage.cpu}}}</p>
+		<p>Memory Usage (all workers): {{{task.usage.mem}}}</p>
+	</div>
+</form>
+
+<script>
+var socket = io.connect('http://' + document.domain);
+
+socket.on('logs', function(data)
+{
+	$('#p_logs').val($('#p_logs').val() + data.msg);
+});
+
+$(document).ready(function()
+{
+	window.setInterval(function()
+	{
+		$('#p_logs').scrollTop($('#p_logs')[0].scrollHeight);
+	}, 500);
+});
+</script>

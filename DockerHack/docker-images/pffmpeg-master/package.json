@@ -1,0 +1,15 @@
+{
+	"name": "pffmpeg-master",
+	"version": "0.0.2",
+	"description": "",
+	"dependencies": {
+		"fluent-ffmpeg": "2.0.x",
+		"express": "4.12.x",
+		"restler":	"3.1.x",
+		"node-uuid": "1.4.x",
+		"connect-busboy": "0.0.x"
+	},
+	"engines": {
+		"node": ">=0.10"
+	}
+}
